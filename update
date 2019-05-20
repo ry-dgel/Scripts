@@ -1,0 +1,23 @@
+#!/bin/zsh
+names=("pacman" "yay" "conda" "atom")
+typeset -A ups
+ups[pacman]="sudo powerpill -Syu"
+ups[yay]="yay -Sayu"
+ups[conda]="conda update --all"
+ups[atom]="apm update" 
+
+for name in $names; do
+    prompt=$(echo "\033[0;36mPerform $name update? [Y/n] \033[0m")
+    read -sk "?${prompt}"
+    echo "\n"
+    case "$REPLY" in
+        [nN][oO]|[nN])
+            echo "Skipping."
+            ;;
+        *)
+            eval $ups[$name]
+            ;;
+    esac
+done
+
+echo "Updates Complete."
