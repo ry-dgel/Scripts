@@ -1,10 +1,11 @@
 #!/bin/zsh
-names=("pacman" "yay" "conda" "atom")
+names=("pacman" "yay" "conda" "atom" "julia")
 typeset -A ups
 ups[pacman]="sudo powerpill -Syu"
 ups[yay]="yay -Sayu"
 ups[conda]="conda update --all"
 ups[atom]="apm update" 
+ups[julia]="julia -e 'using Pkg; Pkg.update()'"
 
 for name in $names; do
     prompt=$(echo "\033[0;36mPerform $name update? [Y/n] \033[0m")
