@@ -12,13 +12,13 @@ FILENAME="$(basename "$FILEPATH")"
 OUTPUT="${FILENAME/.md/}.pdf"
 
 # Create temporary file to work with
-NEWPATH="/tmp/$FILENAME.html"
+NEWPATH="$FILENAME.html"
 cp "$FILEPATH" "$NEWPATH"
 
 # Append required text before and after body
 sed -i '1i<meta charset="utf-8">' "$NEWPATH"
-echo '<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="/home/ry/Scripts/markdeep.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
-<style>.md h1, .md .nonumberh1 {page-break-before:always}</style>' >> "$NEWPATH"
+echo '<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="/home/ry/Scripts/shared/markdeep.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+<style>.md h1, .md .nonumberh1, .md h2, .md .nonumberh2 {page-break-before:always}</style>' >> "$NEWPATH"
 
 # Generate PDF in directory where command was run, appending .pdf to name
 if [ $# -eq 2 ]
@@ -26,4 +26,6 @@ if [ $# -eq 2 ]
         google-chrome-beta "$NEWPATH"
     else
         google-chrome-beta --headless --disable-extensions --print-to-pdf="$OUTPUT" "$NEWPATH"
+        rm "$NEWPATH"
 fi
+
