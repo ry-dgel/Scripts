@@ -1,0 +1,5 @@
+#! /bin/bash
+#scrot '/home/ry/Pictures/screenshots/%F_%T.png' -sfz  -e 'xclip -selection clipboard -target image/png -i $f'
+path="/home/ry/Pictures/screenshots/$(date +'%Y-%M-%d_%H:%M:%S').png"
+maim -s -f "png" -u -o -m 10 ${path}
+xclip -selection clipboard -t image/png -i ${path}
